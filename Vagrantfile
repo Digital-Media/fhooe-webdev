@@ -28,4 +28,15 @@ Vagrant.configure("2") do |config|
 
   # Mapping a folder, that can be used for HM2 excercises, allowing apache running as www-data to write data to these directories
   config.vm.synced_folder "code", "/var/www/html/code", create: true, owner: "www-data", group: "www-data"
+
+    config.vm.provision "## Providing some Shell Scripts in $HOME/bin ##", type: "shell",
+      inline:  <<-SH
+  	  cp /var/www/html/phpinfo.php /var/www/html/code
+  	SH
+
+  config.vm.provision "## Starting Apache and MariaDB with run: always ##", type: "shell", run: "always",
+    inline: <<-SH
+	  service redis-server restart && echo "Redis started with return $?"
+    SH
+
 end
