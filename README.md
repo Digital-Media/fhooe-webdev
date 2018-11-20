@@ -5,7 +5,8 @@ Visit us at https://www.fh-ooe.at/en/hagenberg-campus/
 
 See the [Wiki](https://github.com/Digital-Media/hgb-phpdev/wiki) to learn how the vagrant box was built.
 
-For Troubleshooting Tips see the [Wiki](https://github.com/Digital-Media/hgb-phpdev/wiki/Troubleshooting)
+For Troubleshooting Tips see the [Wiki](https://github.com/Digital-Media/fhooe-webdev/wiki/Troubleshooting)
+For more Details see [Wiki](https://github.com/Digital-Media/fhooe-webdev/wiki/Home)
 
 # Install
 
@@ -44,5 +45,5 @@ For Troubleshooting Tips see the [Wiki](https://github.com/Digital-Media/hgb-php
 
 # Test installation and mapping in browser
 
-  * https://192.168.7.7/code
+  * https://192.168.7.7/code/phpinfo.php
   * https://192.168.7.7/phpmyadmin
