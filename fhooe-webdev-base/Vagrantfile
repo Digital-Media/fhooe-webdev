@@ -78,9 +78,9 @@ Vagrant.configure("2") do |config|
       debconf-set-selections <<< 'mariadb-server-10.3 mysql-server/root_password password geheim'
       debconf-set-selections <<< 'mariadb-server-10.3 mysql-server/root_password_again password geheim'
       
-	  echo "######################################"
-	  echo "## Installing MariaDB and PHPMyAdmin##"
-	  echo "######################################"
+	  echo "#######################################"
+	  echo "## Installing MariaDB and PHPMyAdmin ##"
+	  echo "#######################################"
 	  
 	  # MariaDB 10.3
 	  # apt-get install software-properties-common
