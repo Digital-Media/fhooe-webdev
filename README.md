@@ -22,7 +22,7 @@ For Troubleshooting Tips see the [Wiki](https://github.com/Digital-Media/fhooe-w
 * Install [Vagrant by HashiCorp](https://www.vagrantup.com/downloads.html)
 * Reboot your computer
 * Recommended: Install [PHPStorm Toolbox](https://www.jetbrains.com/toolbox/app/) 
-* Optional: Install [GitHub Desktop](https://desktop.github.com/)
+* Optional: Install [GitHub Desktop](https://desktop.github.com/), [GitForWindows](https://gitforwindows.org/)
 
 # Versions tested
 
