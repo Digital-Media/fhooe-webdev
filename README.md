@@ -13,9 +13,7 @@ For Troubleshooting Tips see the [Wiki](https://github.com/Digital-Media/fhooe-w
 * Virtualization has to be activated in BIOS
 * 10GB disk space locally. If possible use a SSD disk for better performance.
 * Hyper-V in Windows has to be inactive
-* For Windows 7 install new PowerShell
-  * http://www.admin-source.de/BlogDeu/999/powershell-4-0-ist-jetzt-zum-download-verfuegbar
-  * https://www.microsoft.com/en-us/download/details.aspx?id=40855
+* For Windows 7 you must install a new version of PowerShell
 * For MAC: System Settings -> Security --> Allow Virtual Box
 
 * Install [Virtual Box](https://www.virtualbox.org/wiki/Downloads)
