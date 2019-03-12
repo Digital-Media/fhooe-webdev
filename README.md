@@ -27,6 +27,7 @@ For Troubleshooting Tips see the [Wiki](https://github.com/Digital-Media/fhooe-w
 * Vagrant 2.1.5
 * Virtual Box 5.2.18
 * PHPStorm 2018.1.6
+* Virtual Box Versions >= 6.x do not work
 
 # Usage
 
