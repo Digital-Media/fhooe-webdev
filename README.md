@@ -13,7 +13,7 @@ For Troubleshooting Tips see the [Wiki](https://github.com/Digital-Media/fhooe-w
 * Virtualization has to be activated in BIOS
 * 10GB disk space locally. If possible use a SSD disk for better performance.
 * Hyper-V in Windows has to be inactive
-* It looks like Windows 7 and PowerShell do not work any longer with Vagrant
+* It looks like Windows 7 and PowerShell do not work any longer with Vagrant. Microsoft removed the link to the version, that worked.
 * For MAC: System Settings -> Security --> Allow Virtual Box
 
 * Install [Virtual Box](https://www.virtualbox.org/wiki/Downloads)
