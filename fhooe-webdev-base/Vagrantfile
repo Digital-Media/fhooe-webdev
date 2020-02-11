@@ -7,7 +7,7 @@ Vagrant.configure("2") do |config|
   # https://docs.vagrantup.com.
 
   # We use the original ubuntu box with ubuntu 16.04 LTS
-  config.vm.box = "bento/ubuntu-16.04"
+  config.vm.box = "bento/ubuntu-18.04"
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -20,19 +20,19 @@ Vagrant.configure("2") do |config|
   config.vm.boot_timeout = 1500
 
 	# Configuring Image for use as web development environment
-  config.vm.provision "Installing and/or configuring Apache2, PHP7+Extensions, XDEBUG", type: "shell",
+  config.vm.provision "Installing and/or configuring Apache2, PHP 7.4 with extensions and Xdebug", type: "shell",
     inline:  <<-SH
-	  # PHP 7.1
+	  # PHP PPA
 	  add-apt-repository -y ppa:ondrej/php
-	  # Redis Server
+	  # Redis Server PPA
       add-apt-repository -y ppa:chris-lea/redis-server
       apt-get -y -qq update
 
-	  echo "############################################"
-	  echo "## Installing Apache, PHP7.1 + Extensions ##"
-	  echo "############################################"
-      apt-get -y -qq install apache2 php7.1 libapache2-mod-php7.1
-      apt-get -y -qq install php7.1-zip php7.1-mysql php7.1-curl php7.1-dev php7.1-gd php7.1-intl php-pear php-imagick php7.1-imap php7.1-tidy php7.1-xmlrpc php7.1-xsl php7.1-mbstring php7.1-xml php-gettext php-xdebug
+	  echo "#############################################"
+	  echo "## Installing Apache, PHP 7.4 + Extensions ##"
+	  echo "#############################################"
+      apt-get -y -qq install apache2 php7.4 libapache2-mod-php7.4
+      apt-get -y -qq install php7.4-zip php7.4-mysql php7.4-curl php7.4-dev php7.4-gd php7.4-intl php-pear php-imagick php7.4-imap php7.4-tidy php7.4-xmlrpc php7.4-xsl php7.4-mbstring php7.4-xml php-gettext php-xdebug
       apt-get -y -qq install zip unzip
 
 	  echo "###############################################"
@@ -45,7 +45,7 @@ Vagrant.configure("2") do |config|
 	  echo "################################"
 	  echo "# Activating XDEBUG for Apache #"
 	  echo "################################"
-	  INI=/etc/php/7.1/mods-available/xdebug.ini
+	  INI=/etc/php/7.4/mods-available/xdebug.ini
       >> "$INI" echo 'xdebug.remote_enable=1'
       >> "$INI" echo 'xdebug.remote_connect_back=1'
       >> "$INI" echo 'xdebug.remote_port=9000'
@@ -75,17 +75,18 @@ Vagrant.configure("2") do |config|
 	  echo "## Setting debconf-settings for noninteractive mode ##"
 	  echo "######################################################"
 	  export DEBIAN_FRONTEND=noninteractive
-      debconf-set-selections <<< 'mariadb-server-10.3 mysql-server/root_password password geheim'
-      debconf-set-selections <<< 'mariadb-server-10.3 mysql-server/root_password_again password geheim'
+      debconf-set-selections <<< 'mariadb-server-10.4 mysql-server/root_password password geheim'
+      debconf-set-selections <<< 'mariadb-server-10.4 mysql-server/root_password_again password geheim'
       
 	  echo "#######################################"
 	  echo "## Installing MariaDB and PHPMyAdmin ##"
 	  echo "#######################################"
 	  
-	  # MariaDB 10.3
+	  # MariaDB 10.4
 	  # apt-get install software-properties-common
-      apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
-      add-apt-repository -y 'deb [arch=amd64,arm64,i386,ppc64el] http://mirror.mva-n.net/mariadb/repo/10.3/ubuntu xenial main'
+      #apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
+	  apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
+      add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://mirror.klaus-uwe.me/mariadb/repo/10.4/ubuntu bionic main'
       apt-get -y -qq update
       apt-get -y -qq install mariadb-server mariadb-client
 	  mysql -uroot -pgeheim -e "CREATE USER 'onlineshop'@'localhost' IDENTIFIED BY 'geheim'"
@@ -99,67 +100,67 @@ Vagrant.configure("2") do |config|
       ln -s /usr/share/phpmyadmin/ /var/www/html/phpmyadmin
 	SH
 
-  config.vm.provision "Installing and/or configuring OracleJRE, Elasticsearch, Redis", type: "shell",
-    inline:  <<-SH
-	  echo "###########################"
-	  echo "## Installing Oracle JRE ##"
-	  echo "###########################"
+  # config.vm.provision "Installing and/or configuring OracleJRE, Elasticsearch, Redis", type: "shell",
+    # inline:  <<-SH
+	  # echo "###########################"
+	  # echo "## Installing Oracle JRE ##"
+	  # echo "###########################"
 	  
-	  cd /home/vagrant
-	  mkdir .local
-	  chown vagrant:vagrant .local
-	  cd /home/vagrant/.local
-	  curl -s -L -b "oraclelicense=a" http://download.oracle.com/otn-pub/java/jdk/8u191-b12/2787e4a523244c269598db4e85c51e0c/jre-8u191-linux-x64.tar.gz -O
-	  echo "813f48192558fea793af22c96b1b708694bffe36111a33d354f312c1c1ae4bf2  jre-8u191-linux-x64.tar.gz" | sha256sum --check --status
-      if [ $? == 0 ]
-      then
-        chmod 777 jre-8u191-linux-x64.tar.gz;
-		tar zvxf jre-8u191-linux-x64.tar.gz;
-		chown -R vagrant:vagrant jre1.8.0_191
-        echo "export JAVA_HOME=/home/vagrant/.local/jre1.8.0_191" >> /home/vagrant/.bashrc;		
-	  else
-	    echo "Oracle JRE not installed" && exit 1;
-      fi
+	  # cd /home/vagrant
+	  # mkdir .local
+	  # chown vagrant:vagrant .local
+	  # cd /home/vagrant/.local
+	  # curl -s -L -b "oraclelicense=a" http://download.oracle.com/otn-pub/java/jdk/8u191-b12/2787e4a523244c269598db4e85c51e0c/jre-8u191-linux-x64.tar.gz -O
+	  # echo "813f48192558fea793af22c96b1b708694bffe36111a33d354f312c1c1ae4bf2  jre-8u191-linux-x64.tar.gz" | sha256sum --check --status
+      # if [ $? == 0 ]
+      # then
+        # chmod 777 jre-8u191-linux-x64.tar.gz;
+		# tar zvxf jre-8u191-linux-x64.tar.gz;
+		# chown -R vagrant:vagrant jre1.8.0_191
+        # echo "export JAVA_HOME=/home/vagrant/.local/jre1.8.0_191" >> /home/vagrant/.bashrc;		
+	  # else
+	    # echo "Oracle JRE not installed" && exit 1;
+      # fi
 	  
-	  echo "##############################"
-	  echo "## Installing ElasticSearch ##"
-	  echo "##############################"
+	  # echo "##############################"
+	  # echo "## Installing ElasticSearch ##"
+	  # echo "##############################"
 
-      wget --quiet https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.tar.gz
-      wget --quiet https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.tar.gz.sha512
-      shasum -a 512 -c elasticsearch-6.4.3.tar.gz.sha512 
-      if [ $? == 0 ]
-      then
-        chmod 777 elasticsearch-6.4.3.tar.gz;
-        tar -xzf elasticsearch-6.4.3.tar.gz
-		chown -R vagrant:vagrant elasticsearch-6.4.3
-        echo "export ES_HOME=/home/vagrant/.local/elasticsearch-6.4.3" >> /home/vagrant/.bashrc;		
-	  else
-	    echo "ElasticSearch not installed" && exit 1;
-      fi
+      # wget --quiet https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.tar.gz
+      # wget --quiet https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.tar.gz.sha512
+      # shasum -a 512 -c elasticsearch-6.4.3.tar.gz.sha512 
+      # if [ $? == 0 ]
+      # then
+        # chmod 777 elasticsearch-6.4.3.tar.gz;
+        # tar -xzf elasticsearch-6.4.3.tar.gz
+		# chown -R vagrant:vagrant elasticsearch-6.4.3
+        # echo "export ES_HOME=/home/vagrant/.local/elasticsearch-6.4.3" >> /home/vagrant/.bashrc;		
+	  # else
+	    # echo "ElasticSearch not installed" && exit 1;
+      # fi
 	  
-	  echo "#############################################"
-	  echo "## Installing German Decompound Dictionary ##"
-	  echo "#############################################"
+	  # echo "#############################################"
+	  # echo "## Installing German Decompound Dictionary ##"
+	  # echo "#############################################"
 
-      git clone https://github.com/uschindler/german-decompounder.git
-      cd elasticsearch-6.4.3/config
-      mkdir analysis
-	  chown vagrant:vagrant analysis
-      cd analysis
-      cp ../../../german-decompounder/de_DR.xml .
-      cp ../../../german-decompounder/dictionary-de.txt .
+      # git clone https://github.com/uschindler/german-decompounder.git
+      # cd elasticsearch-6.4.3/config
+      # mkdir analysis
+	  # chown vagrant:vagrant analysis
+      # cd analysis
+      # cp ../../../german-decompounder/de_DR.xml .
+      # cp ../../../german-decompounder/dictionary-de.txt .
 	  	  
-	  echo "#####################################################"
-	  echo "## Installing Redis Server and PHP Redis Extension ##"
-	  echo "#####################################################"
+	  # echo "#####################################################"
+	  # echo "## Installing Redis Server and PHP Redis Extension ##"
+	  # echo "#####################################################"
 
-      apt-get -y install redis-server php-redis
-      sed -i '70i bind localhost 192.168.7.7' /etc/redis/redis.conf
-      sed -i '509i requirepass geheim' /etc/redis/redis.conf
-   	SH
+      # apt-get -y install redis-server php-redis
+      # sed -i '70i bind localhost 192.168.7.7' /etc/redis/redis.conf
+      # sed -i '509i requirepass geheim' /etc/redis/redis.conf
+   	# SH
 	
-  config.vm.provision "## Installing PHPCodeSniffer ##", type: "shell",
+  config.vm.provision "## Installing PHP_CodeSniffer ##", type: "shell",
     inline:  <<-SH
 	  cd /usr/local/bin
 	  curl -s -Ol https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
@@ -173,17 +174,17 @@ Vagrant.configure("2") do |config|
   config.vm.provision "## Installing composer ##", type: "shell",
     inline:  <<-SH
 	  cd /home/vagrant
-      EXPECTED_SIGNATURE="$(wget -q -O - https://composer.github.io/installer.sig)"
+      EXPECTED_CHECKSUM="$(wget -q -O - https://composer.github.io/installer.sig)"
       php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-      ACTUAL_SIGNATURE="$(php -r "echo hash_file('SHA384', 'composer-setup.php');")"
-      if [ "$EXPECTED_SIGNATURE" != "$ACTUAL_SIGNATURE" ]
+      ACTUAL_CHECKSUM="$(php -r "echo hash_file('sha384', 'composer-setup.php');")"
+      if [ "$EXPECTED_CHECKSUM" != "$ACTUAL_CHECKSUM" ]
       then
-          >&2 echo '## ERROR: Invalid installer signature for composer. Composer not installed!! ##'
+          >&2 echo '## ERROR: Invalid installer checksum for composer. Composer not installed. ##'
           rm composer-setup.php
           exit 1
       fi
       php composer-setup.php --install-dir=/usr/local/bin
-      php -r "unlink('composer-setup.php');"
+      rm composer-setup.php
 	  mv /usr/local/bin/composer.phar /usr/local/bin/composer
 	SH
 	
@@ -203,7 +204,7 @@ Vagrant.configure("2") do |config|
     inline: <<-SH
 	  service apache2 restart  && echo "Apache started with return code $?"   
       service mysql restart  && echo "MariaDB started with return $?"
-	  service redis-server restart && echo "Redis started with return $?"
+	  #service redis-server restart && echo "Redis started with return $?"
     SH
 	
 end
