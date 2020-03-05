@@ -180,6 +180,6 @@ Vagrant.configure("2") do |config|
     service apache2 restart  && echo "Apache started with return code $?"   
     service mysql restart  && echo "MariaDB started with return code $?"
     service redis-server restart && echo "Redis started with return code $?"
-    systemctl stop elasticsearch.service && echo "Elasticsearch started with return code $?"
+    systemctl stop elasticsearch.service && echo "Elasticsearch stopped with return code $?"
   SH
 end
