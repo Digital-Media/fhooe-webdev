@@ -11,7 +11,7 @@ Not familiar with Vagrant or not sure, why to use it? Have a look at the [Introd
 To use this environment, you will need [VirtualBox](https://www.virtualbox.org/) and [Vagrant](https://www.vagrantup.com/). For them to work on your machine, make sure the following prerequisites are fulfilled:
 
 * Virtualization is activated in BIOS.
-* 10 GB of disk space is available locally. If possible use an SSD disk for better performance.
+* 10 GB of disk space is available locally. If possible use an SSD for better performance.
 * Hyper-V in Windows is deactivated.
 * On Mac OS X make sure, VirtualBox has the necessary permissions. Go to "System Settings -> Security -> Allow Virtual Box".
 
