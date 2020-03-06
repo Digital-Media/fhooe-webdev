@@ -1,8 +1,11 @@
+# General
 .vagrant/
+
+# Synced folder
 code/
+
+# Log files
 *.log
-!.gitignore
-.idea
-*.gz
-elasticsearch-6.3.1.tar.gz.sha512
-german-decompounder-master.zip
+
+# Box files
+*.box
