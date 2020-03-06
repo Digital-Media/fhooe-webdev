@@ -80,7 +80,7 @@ Once the version has been created, select "Add a provider" to add the actual box
 PS> Get-FileHash -Path .\fhooe-webdev-vX.Y.Z.box -Algorithm SHA512 | Format-List
 ```
 
-On Linux and Mac OS X use this on your terminal:
+On Linux and Mac OS X use this in your terminal:
 
 ```
 $ shasum -a512 fhooe-webdev-vX.Y.Z.box
@@ -88,4 +88,4 @@ $ shasum -a512 fhooe-webdev-vX.Y.Z.box
 
 These commands will calculate and print the checksum for your box. Copy the value and enter it into the "Checksum" field.
 
-Below this, keep the radio button with "Upload to Vagrant Cloud" and press "Continue to upload". Choose your box file and upload it. Once this has been done, return to your box's page on Vagrant Cloud. You will notice that the latest release is marked as "unreleased". Click the "Release..." button next to it and then select "Release version". The box is now publicly available for all users.
+Below this, keep the radio button with "Upload to Vagrant Cloud" checked and press "Continue to upload". Choose your box file and upload it. Once this has been done, return to your box's page on Vagrant Cloud. You will notice that the latest release is marked as "unreleased". Click the "Release..." button next to it and then select "Release version". The box is now publicly available for all users.
