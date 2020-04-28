@@ -4,7 +4,7 @@
 
 Vagrant.configure("2") do |config|
   # Using the Bento Ubuntu box with Ubuntu 18.04 LTS
-  config.vm.box = "bento/ubuntu-18.04"
+  config.vm.box = "bento/ubuntu-20.04"
 
   # Creating a private network, which allows host-only access to the machine using a specific IP.
   # Important: avoid IP conflicts with the university network based on 10.*.*.*
