@@ -1,6 +1,6 @@
 # fhooe-webdev-base - A Vagrantfile for Developing the fhooe-webdev Vagrant Box
 
-This directory provides the Vagrantfile that configures the [fhooe/fhooe-webdev box](https://app.vagrantup.com/fhooe/boxes/fhooe-webdev). It is based on the [bento/ubuntu-18.04 box](https://app.vagrantup.com/bento/boxes/ubuntu-18.04) and adds Apache2, PHP 7.4, MariaDB 10.4, Redis Server 5.0, Elasticsearch 7.4, as well as additional tools and scripts.
+This directory provides the Vagrantfile that configures the [fhooe/fhooe-webdev box](https://app.vagrantup.com/fhooe/boxes/fhooe-webdev). It is based on the [bento/ubuntu-20.04 box](https://app.vagrantup.com/bento/boxes/ubuntu-20.04) and adds Apache2, PHP 7.4, MariaDB 10.4, Redis Server 5.0, Elasticsearch 7.4, as well as additional tools and scripts.
 
 This Vagrantfile is solely meant for developing the final Vagrant box. Although you can use for web development, provisioning the image takes some time and is most likely not very convenient.
 
@@ -9,7 +9,7 @@ This Vagrantfile is solely meant for developing the final Vagrant box. Although 
 To use this environment, you will need [VirtualBox](https://www.virtualbox.org/) and [Vagrant](https://www.vagrantup.com/). For them to work on your machine, make sure the following prerequisites are fulfilled:
 
 * Virtualization is activated in BIOS.
-* 10 GB of disk space is available locally. If possible use an SSD for better performance.
+* 10 GB of disk space is available locally. If possible, use an SSD for better performance.
 * Hyper-V in Windows is deactivated.
 * On Mac OS X make sure, VirtualBox has the necessary permissions. Go to "System Settings -> Security -> Allow Virtual Box".
 
@@ -27,9 +27,9 @@ Follow these steps to build a new fhooe/fhooe-webdev base box and distribute it 
 
 Download or clone the [fhooe-webdev](https://github.com/Digital-Media/fhooe-webdev) repository to a location of your choice on your computer.
 
-Make all the changes in the Vagrantfile of the `fhooe-webdev-base` directory. Make sure to document everything in the Vagrantfile, if possible use `echo` statements to show what you are doing.
+Make all the changes in the Vagrantfile of the `fhooe-webdev-base` directory. Make sure to document everything in the Vagrantfile, if possible, use `echo` statements to show what you are doing.
 
-To test everything, switch to the directory where you cloned/downloaded the repository and select the development subdirectory, e.g. `cd <path-to>/fhooe-webdev/fhooe-webdev-base`. Then run `vagrant up`. This will download the [bento/ubuntu-18.04 box](https://app.vagrantup.com/bento/boxes/ubuntu-18.04) (a minimal Ubuntu image) from Vagrant Cloud, and run all the provisioning steps from the Vagrantfile. Finally, the mache is run in headless mode. Use `vagrant ssh` to connect to the box and make sure, everything is running and configured as planned.
+To test everything, switch to the directory where you cloned/downloaded the repository, and select the development subdirectory, e.g., `cd <path-to>/fhooe-webdev/fhooe-webdev-base`. Then run `vagrant up`. This will download the [bento/ubuntu-20.04 box](https://app.vagrantup.com/bento/boxes/ubuntu-20.04) (a minimal Ubuntu image) from Vagrant Cloud, and run all the provisioning steps from the Vagrantfile. Finally, the mache is run in headless mode. Use `vagrant ssh` to connect to the box and make sure everything is running and configured as planned.
 
 ### Creating the fhooe/fhooe-webdev box
 
@@ -60,13 +60,13 @@ $ cat /dev/null > ~/.bash_history && history -c && exit
 
 #### Packaging the Vagrant box
 
-The currently running (and now cleaned) machine is now packaged into a Vagrant box file so it can be uploaded to Vagrant Cloud and made available for distribution.
+The currently running (and now cleaned) machine is promptly packaged into a Vagrant box file so it can be uploaded to Vagrant Cloud and made available for distribution.
 
 ```
 vagrant package --output fhooe-webdev-vX.Y.Z.box
 ```
 
-Replace `X.Y.Z` with the version number you're planning to release. Frankly, the filename doesn't matter for Vagrant Cloud since will be renamed anyway but this lowers the risk of uploading the wrong box version.
+Replace `X.Y.Z` with the version number you're planning to release. Frankly, the filename doesn't matter for Vagrant Cloud since will be renamed anyway, but this lowers the risk of uploading the wrong box version.
 
 ### Uploading to Vagrant Cloud
 
