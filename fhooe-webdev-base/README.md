@@ -41,20 +41,20 @@ Before packaging, clean up the image to remove unnecessary files. SSH into the b
 
 First, the APT cache is cleaned:
 
-```
+```shell
 $ sudo apt-get clean
 ```
 
 Then the drive is zeroed out:
 
-```
+```shell
 $ sudo dd if=/dev/zero of=/EMPTY bs=1M
 $ sudo rm -f /EMPTY
 ```
 
 Finally, the bash history is cleared and the SSH connection is exited:
 
-```
+```shell
 $ cat /dev/null > ~/.bash_history && history -c && exit
 ```
 
@@ -72,17 +72,17 @@ Replace `X.Y.Z` with the version number you're planning to release. Frankly, the
 
 Go to the [fhooe/fhooe-webdev site](https://app.vagrantup.com/fhooe/boxes/fhooe-webdev) on Vagrant Cloud, log in and select [New Version](https://app.vagrantup.com/fhooe/boxes/fhooe-webdev/versions/new).
 
-Add a version number in the RubyGems versioning scheme (e.g. 1.2.3). Do *not* precede the version number with a "v" (e.g. v1.0.0). Also, add a description for this version. This functions as release notes, so include what has changed in this release. Then click "Create version".
+Add a version number in the RubyGems versioning scheme (e.g. 1.2.3). Do *not* precede the version number with a "v" (e.g. v1.2.3). Also, add a description for this version. This functions as release notes, so include what has changed in this release. Then click "Create version".
 
 Once the version has been created, select "Add a provider" to add the actual box. Choose "virtualbox" in the list of providers and select "SHA512" as a checksum type. To calculate the SHA512 checksum on Windows for your newly created box, use the following PowerShell commandlet:
 
-```
+```powershell
 PS> Get-FileHash -Path .\fhooe-webdev-vX.Y.Z.box -Algorithm SHA512 | Format-List
 ```
 
 On Linux and Mac OS X use this in your terminal:
 
-```
+```shell
 $ shasum -a512 fhooe-webdev-vX.Y.Z.box
 ```
 
