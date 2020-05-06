@@ -2,7 +2,7 @@
 
 This repository provides a Vagrantfile for a consistent Linux-based web development environment designed for the use in web development classes at the [Upper Austria University of Applied Sciences (FH Oberösterreich), Hagenberg Campus](https://www.fh-ooe.at/en/hagenberg-campus/).
 
-The Vagrantfile works with our own [fhooe/fhooe-webdev box](https://app.vagrantup.com/fhooe/boxes/fhooe-webdev), which is based on Ubuntu 18.04 LTS and includes Apache2, PHP 7.4, MariaDB 10.4, Redis Server 5.0, Elasticsearch 7.4, as well as additional tools and scripts.
+The Vagrantfile works with our own [fhooe/fhooe-webdev box](https://app.vagrantup.com/fhooe/boxes/fhooe-webdev), which is based on Ubuntu 20.04 LTS and includes Apache2, PHP 7.4, MariaDB 10.4, Redis Server 5.0, Elasticsearch 7.4, as well as additional tools and scripts.
 
 Not familiar with Vagrant or not sure, why to use it? Have a look at the [Introduction](https://www.vagrantup.com/intro/) first.
 
