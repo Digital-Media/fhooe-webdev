@@ -3,9 +3,10 @@
 # vim: set et :
 
 Vagrant.configure("2") do |config|
-  # Using the fhooe/fhooe-webdev image based Bento Ubuntu box with Ubuntu 18.04 LTS
-  config.vm.box = "fhooe/fhooe-webdev" 
-  config.vm.box_version = "~> 1.0"
+  # Using the fhooe/fhooe-webdev image based Bento Ubuntu box with Ubuntu 20.04 LTS
+  config.vm.box = "fhooe/fhooe-webdev"
+
+  # Increasing the boot timeout (default is 300 seconds)
   config.vm.boot_timeout = 1500
 
   # If Vagrant hangs at SSH to box during startup, this may help if normal troubleshooting doesn't work
