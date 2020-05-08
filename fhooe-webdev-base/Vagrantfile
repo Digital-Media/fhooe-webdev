@@ -17,15 +17,28 @@ Vagrant.configure("2") do |config|
   config.vm.boot_timeout = 1500
 
   # Running various provisioners to set up the basic components needed in the web development classes
-  config.vm.provision "Adding additional PPAs", type: "shell", inline: <<-SH
-	echo "#################################################"
-    echo "## Adding Additional Personal Package Archives ##"
-    echo "#################################################"
+  config.vm.provision "Adding repositories and PPAs", type: "shell", inline: <<-SH
+	echo "#########################################################"
+    echo "## Adding Repositories and Personal Package Archives ##"
+    echo "#######################################################"
+    # HTTPS for APT
+    apt-get install apt-transport-https
+    
     # PHP PPA by Ondřej Surý
     add-apt-repository -y ppa:ondrej/php
+    
+    # MariaDB repository
+    apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
+    add-apt-repository 'deb [arch=amd64] http://mirror.klaus-uwe.me/mariadb/repo/10.5/ubuntu focal main'
+    
     # Redis Server PPA by Chris Lea
-    add-apt-repository -y ppa:chris-lea/redis-server
-	  # apt-get update 
+    # add-apt-repository -y ppa:chris-lea/redis-server
+
+    # Elasticsearch repository
+    wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+    add-apt-repository "deb https://artifacts.elastic.co/packages/7.x/apt stable main"
+    
+    # apt-get update 
     apt-get -y -qq update
   SH
   
@@ -78,15 +91,12 @@ Vagrant.configure("2") do |config|
     echo "## Setting debconf-settings for noninteractive mode ##"
     echo "######################################################"
     export DEBIAN_FRONTEND=noninteractive
-    debconf-set-selections <<< 'mariadb-server-10.4 mysql-server/root_password password geheim'
-    debconf-set-selections <<< 'mariadb-server-10.4 mysql-server/root_password_again password geheim'
+    debconf-set-selections <<< 'mariadb-server-10.5 mysql-server/root_password password geheim'
+    debconf-set-selections <<< 'mariadb-server-10.5 mysql-server/root_password_again password geheim'
       
     echo "#######################################"
     echo "## Installing MariaDB and phpMyAdmin ##"
     echo "#######################################"
-    apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
-    add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://mirror.klaus-uwe.me/mariadb/repo/10.4/ubuntu bionic main'
-    apt-get -y -qq update
     apt-get -y -qq install mariadb-server mariadb-client
     mysql -uroot -pgeheim -e "CREATE USER 'onlineshop'@'localhost' IDENTIFIED BY 'geheim'"
     mysql -uroot -pgeheim -e "GRANT ALL PRIVILEGES ON *.* TO 'onlineshop'@'localhost'"
@@ -142,10 +152,6 @@ Vagrant.configure("2") do |config|
     echo "##############################"
     echo "## Installing Elasticsearch ##"
     echo "##############################"
-    apt-get install apt-transport-https
-    wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
-    add-apt-repository "deb https://artifacts.elastic.co/packages/7.x/apt stable main"
-    apt-get update
     apt-get install elasticsearch
     /bin/systemctl enable elasticsearch.service
   
