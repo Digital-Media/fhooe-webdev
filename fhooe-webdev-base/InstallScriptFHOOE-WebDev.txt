@@ -34,12 +34,6 @@ echo "################################"
 #cd /etc/php/7.4/mods-available/xdebug.ini
 INI=/etc/php/7.4/mods-available/xdebug.ini
 
-# echo >> funktioniert nicht?! wegen permission denied. sudo vi ctrl-shift-v schon???
-# sudo sed -i auch nicht???
-#sudo echo 'xdebug.remote_enable=1' >> xdebug.ini
-#sudo echo 'xdebug.remote_connect_back=1' >> xdebug.ini
-#sudo echo 'xdebug.remote_port=9000' >> xdebug.ini
-
 sudo bash -c "echo 'xdebug.remote_enable=1' >> $INI"
 sudo bash -c "echo 'xdebug.remote_connect_back=1' >> $INI"
 sudo bash -c "echo 'xdebug.remote_port=9000' >> $INI"
