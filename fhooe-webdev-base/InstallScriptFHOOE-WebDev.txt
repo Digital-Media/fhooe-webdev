@@ -96,9 +96,6 @@ sudo chmod 755 phpcs phpcbf
 exit
 
 ## Installing composer ##
-
-# Angemeldet als p20137
-
 cd /home/p20137
 EXPECTED_SIGNATURE="$(wget -q -O - https://composer.github.io/installer.sig)"
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
@@ -115,28 +112,12 @@ php composer-setup.php --quiet
 RESULT=$?
 rm composer-setup.php
 echo $RESULT
-
-su user
 sudo mv composer.phar /usr/local/bin/composer
 sudo chown root:root /usr/local/bin/composer
 
 echo "###########################"
 echo "## Installing Oracle JRE ##"
 echo "###########################"
-
-# Java openJDK 11.0.3 already installed. 7.x is compatible with this version
-
-echo "##################################"
-echo "## Installing ElasticSearch 7.3 ##"
-echo "##################################"
-
-export $JAVA_HOME=/usr/lib/jvm/default-java
-sudo apt-get install apt-transport-https
-wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
-sudo add-apt-repository "deb https://artifacts.elastic.co/packages/7.x/apt stable main"
-sudo apt-get update
-sudo apt-get install elasticsearch
-sudo vi /etc/elasticsearch/elasticsearch.yml
 
 cd /home/user
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
@@ -163,57 +144,6 @@ jetbrains-toolbox
 
 service apache2 restart  && echo "Apache started with return code $?"
 service mysql restart  && echo "MariaDB started with return $?"
-service redis-server restart && echo "Redis started with return $?"
-
-# Ab Snapshot
-
-# Redis als Service einrichten
-sudo vi /etc/redis/redis.conf
-
-...
-# If you run Redis from upstart or systemd, Redis can interact with your
-# supervision tree. Options:
-#   supervised no      - no supervision interaction
-#   supervised upstart - signal upstart by putting Redis into SIGSTOP mode
-#   supervised systemd - signal systemd by writing READY=1 to $NOTIFY_SOCKET
-#   supervised auto    - detect upstart or systemd method based on
-#                        UPSTART_JOB or NOTIFY_SOCKET environment variables
-# Note: these supervision methods only signal "process is ready."
-#       They do not enable continuous liveness pings back to your supervisor.
-supervised systemd
-...
-# After a new start with "service redis-server restart" redis was running again
-# No idea so far, why it crashed and didn't start again on 1.8.2019
-# /etc/rc5.d stores all links to automatically start apache2, elasticsearch and redis.
-
-# install phyton, not necessary, available in every ubuntu distribution
-
-sudo systemctl start redis-server
-sudo systemctl enable redis-server
-
-
-# per-user web directories
-
-# https://httpd.apache.org/docs/2.4/howto/public_html.html
-
-sudo a2enmod userdir
-sudo service apache2 restart
-# sudo systemctl restart apache2.service
-
-
-
-# Steps to install MongoDB 4.2 and Node as User user
-wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
-echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
-sudo apt-get update
-sudo apt-get install -y mongodb-org
-systemctl enable mongod
-
-
-# Clone slimshop from GitHub
-curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
-sudo apt-get install -y -qq nodejs
-
 
 
 
