@@ -46,10 +46,6 @@ cd /etc/apache2/sites-available
 sudo sed -i '29i #' 000-default.conf
 sudo sed -i '30i # Redirct permanently to https ' 000-default.conf
 sudo sed -i '31i # added by Martin Harrer for demonstration purposes in web lessons' 000-default.conf
-
-# welche IP verwenden, falls wir von außen zugreifen? Im Image passt localhost
-# bekommt jeder clone seine eigene IP-Adresse?
-# Ist die statisch oder kommt die von DHCP?
 sudo sed -i '32i Redirect permanent / https://localhost/' 000-default.conf
 
 echo "#############################################################"
@@ -73,8 +69,6 @@ echo "## Installing MariaDB and PHPMyAdmin ##"
 echo "#######################################"
 	  
 # MariaDB 10.4
-# apt-get install software-properties-common
-# sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
 sudo apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
 sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://mirror.klaus-uwe.me/mariadb/repo/10.4/ubuntu bionic main'
 sudo apt-get -y update
@@ -82,9 +76,6 @@ sudo apt-get -y -qq install mariadb-server mariadb-client
 sudo mysql -uroot -pgeheim -e "CREATE USER 'onlineshop'@'localhost' IDENTIFIED BY 'geheim'"
 sudo mysql -uroot -pgeheim -e "GRANT ALL PRIVILEGES ON *.* TO 'onlineshop'@'localhost'"
 sudo apt-get -y -qq install phpmyadmin
-
-# user debian-sys-maint existiert nicht mehr unter MariaDB 10.4. sudo mysql ...
-# mysql -uroot -pgeheim -e "GRANT ALL PRIVILEGES ON *.* TO 'debian-sys-maint'@'localhost'"
 
 echo "################################################"
 echo "## Linking PHPMyAdmin to Apache Document Root ##"
@@ -129,17 +120,6 @@ su user
 sudo mv composer.phar /usr/local/bin/composer
 sudo chown root:root /usr/local/bin/composer
 
-
-echo "#####################################################"
-echo "## Installing Redis Server and PHP Redis Extension ##"
-echo "#####################################################"
-
-apt-get -y install redis-server php-redis
-# an welche IP sollen wir redis binden? Hat jeder Clone seine eigene IP?
-#sed -i '70i bind localhost 192.168.7.7' /etc/redis/redis.conf
-#sed -i '509i requirepass geheim' /etc/redis/redis.conf
-
-
 echo "###########################"
 echo "## Installing Oracle JRE ##"
 echo "###########################"
@@ -157,21 +137,6 @@ sudo add-apt-repository "deb https://artifacts.elastic.co/packages/7.x/apt stabl
 sudo apt-get update
 sudo apt-get install elasticsearch
 sudo vi /etc/elasticsearch/elasticsearch.yml
-
-# configuring elasticsearch only for localhost.
-# https://www.elastic.co/guide/en/elasticsearch/reference/7.0/breaking-changes-7.0.html#breaking_70_discovery_changes
-network.host: localhost
-cluster.name: myShopCluster1
-node.name: "myShopNode1"
-
-https://www.elastic.co/guide/en/elasticsearch/reference/current/important-settings.html
-
-sudo /bin/systemctl enable elasticsearch.service
-
-sudo systemctl start elasticsearch.service
-sudo systemctl stop elasticsearch.service
-
-curl -X GET http://localhost:9200
 
 cd /home/user
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
