@@ -12,7 +12,7 @@ To use this environment, you will need [VirtualBox](https://www.virtualbox.org/)
 
 * Virtualization is activated in BIOS.
 * 10 GB of disk space is available locally. If possible use an SSD for better performance.
-* Hyper-V in Windows is deactivated.
+* Hyper-V in Windows is deactivated. (Starting with VMWare 16 this is no longer necessary)
 * On Mac OS X make sure, VirtualBox has the necessary permissions. Go to "System Settings -> Security -> Allow Virtual Box".
 
 Then install the required software in the following order:
