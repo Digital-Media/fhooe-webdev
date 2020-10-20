@@ -1,16 +1,15 @@
 #!/bin/bash
-# /root/bin/rechte.sh
 #
 # Author: Martin Harrer
 # Date: Wed Oct 22 11:14:25 CEST 2008 
 # Use: 
-# Changes:
+# Changes: added sudo bash -c for rm -rf   20.10.20 Martin Harrer
 #
 # uncomment for debugging, displays content of variables
 # set -x
 #
 # Directory rechte löschen, falls es schon vorhanden ist
-rm -rf $HOME/rechte
+sudo bash -c "rm -rf $HOME/rechte"
 # Directory rechte neu anlegen
 mkdir $HOME/rechte
 # ins Directory rechte wechseln
@@ -172,4 +171,3 @@ echo "# cd rwxdir"
 cd rwxdir
 pwd
 cd .. # wieder ins vorige Verzeichnis zurueckwechseln
-
