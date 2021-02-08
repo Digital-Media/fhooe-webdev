@@ -1,6 +1,6 @@
 # fhooe-webdev-base - A Vagrantfile for Developing the fhooe-webdev Vagrant Box
 
-This directory provides the Vagrantfile that configures the [fhooe/fhooe-webdev box](https://app.vagrantup.com/fhooe/boxes/fhooe-webdev). It is based on the [bento/ubuntu-20.04 box](https://app.vagrantup.com/bento/boxes/ubuntu-20.04) and adds Apache2, PHP 7.4, MariaDB 10.5, Redis Server 5.0, Elasticsearch 7.6, as well as additional tools and scripts.
+This directory provides the Vagrantfile that configures the [fhooe/fhooe-webdev box](https://app.vagrantup.com/fhooe/boxes/fhooe-webdev). It is based on the [bento/ubuntu-20.04 box](https://app.vagrantup.com/bento/boxes/ubuntu-20.04) and adds Apache2, PHP 8.0, MariaDB 10.5, as well as additional tools and scripts.
 
 This Vagrantfile is solely meant for developing the final Vagrant box. Although you can use for web development, provisioning the image takes some time and is most likely not very convenient.
 
