@@ -39,7 +39,7 @@ Vagrant.configure("2") do |config|
   SH
 
   # Perform service startup for all components
-  config.vm.provision "Service startup: Apache2, MariaDB, Redis and Elasticsearch with run: always", type: "shell", run: "always", inline: <<-SH
+  config.vm.provision "Service startup: Apache2, and MariaDB with run: always", type: "shell", run: "always", inline: <<-SH
     service apache2 restart  && echo "Apache started with return code $?"   
     service mysql restart  && echo "MariaDB started with return code $?"
   SH
