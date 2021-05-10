@@ -58,7 +58,7 @@ Vagrant.configure("2") do |config|
     echo "# Activating Xdebug for Apache2 #"
     echo "#################################"
     INI=/etc/php/8.0/mods-available/xdebug.ini
-    >> "$INI" echo 'xdebug.mode=debug,develop'
+    >> "$INI" echo 'xdebug.mode=debug,develop,coverage'
     >> "$INI" echo 'xdebug.discover_client_host=1'
 
     echo "########################################"
